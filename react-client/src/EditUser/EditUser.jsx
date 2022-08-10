@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./EditUser.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 
 function EditUser({}) {
   const params = useParams();
@@ -9,6 +9,7 @@ function EditUser({}) {
   const [profession, setProfession] = useState("");
   const [age, setAge] = useState(0);
   const [location, setLocation] = useState("");
+  let navigate = useNavigate();
 
   const fetchUser = () => {
     fetch(`http://localhost:4000/api/users/${params.id}`, {
@@ -31,6 +32,13 @@ function EditUser({}) {
   const updateUser = (event) => {
     event.preventDefault();
     console.log(name);
+    fetch(`http://localhost:4000/api/users/${params.id}`, {
+      method: "PUT",
+      headers: {
+        "Content-type": "application/json",
+      },
+      body: JSON.stringify({ name, email, profession, age, location }),
+    }).then(() => navigate("/"));
   };
 
   return (

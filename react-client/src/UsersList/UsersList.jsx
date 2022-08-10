@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "./UsersList.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { SearchOutlined } from "@ant-design/icons";
+import { Button, Input, Space, Table } from "antd";
+import Highlighter from "react-highlight-words";
 
 function UsersList() {
   const [users, setUsers] = useState([]);
+  //ant table
+  const [searchText, setSearchText] = useState("");
+  const [searchedColumn, setSearchedColumn] = useState("");
+  const searchInput = useRef(null);
+  let navigate = useNavigate();
 
   const fetchUsers = () => {
     fetch("http://localhost:4000/api/users")
@@ -17,17 +25,239 @@ function UsersList() {
     fetchUsers();
   }, []);
 
-  const deleteUserFromTable = (user) => {
-    fetch(`http://localhost:4000/api/users/${user.id}`, {
-      method: "DELETE",
-    }).then(fetchUsers);
+  const deleteUserFromTable = (id) => {
+    console.log(id);
+    if (id) {
+      fetch(`http://localhost:4000/api/users/${id}`, {
+        method: "DELETE",
+      }).then(fetchUsers);
+    }
   };
 
+  //ant table
+  const handleSearch = (selectedKeys, confirm, dataIndex) => {
+    confirm();
+    setSearchText(selectedKeys[0]);
+    setSearchedColumn(dataIndex);
+  };
+
+  const handleReset = (clearFilters) => {
+    clearFilters();
+    setSearchText("");
+  };
+
+  const getColumnSearchProps = (dataIndex) => ({
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
+      <div
+        style={{
+          padding: 8,
+        }}
+      >
+        <Input
+          ref={searchInput}
+          placeholder={`Search ${dataIndex}`}
+          value={selectedKeys[0]}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
+          onPressEnter={() => handleSearch(selectedKeys, confirm, dataIndex)}
+          style={{
+            marginBottom: 8,
+            display: "block",
+          }}
+        />
+        <Space>
+          <Button
+            type="primary"
+            onClick={() => handleSearch(selectedKeys, confirm, dataIndex)}
+            icon={<SearchOutlined />}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Search
+          </Button>
+          <Button
+            onClick={() => clearFilters && handleReset(clearFilters)}
+            size="small"
+            style={{
+              width: 90,
+            }}
+          >
+            Reset
+          </Button>
+          <Button
+            type="link"
+            size="small"
+            onClick={() => {
+              confirm({
+                closeDropdown: false,
+              });
+              setSearchText(selectedKeys[0]);
+              setSearchedColumn(dataIndex);
+            }}
+          >
+            Filter
+          </Button>
+        </Space>
+      </div>
+    ),
+    filterIcon: (filtered) => (
+      <SearchOutlined
+        style={{
+          color: filtered ? "#1890ff" : undefined,
+        }}
+      />
+    ),
+    onFilter: (value, record) =>
+      record[dataIndex].toString().toLowerCase().includes(value.toLowerCase()),
+    onFilterDropdownVisibleChange: (visible) => {
+      if (visible) {
+        setTimeout(() => searchInput.current?.select(), 100);
+      }
+    },
+    render: (text) =>
+      searchedColumn === dataIndex ? (
+        <Highlighter
+          highlightStyle={{
+            backgroundColor: "#ffc069",
+            padding: 0,
+          }}
+          searchWords={[searchText]}
+          autoEscape
+          textToHighlight={text ? text.toString() : ""}
+        />
+      ) : (
+        text
+      ),
+  });
+
+  const columns = [
+    {
+      title: "id",
+      dataIndex: "id",
+    },
+    {
+      title: "Name",
+      dataIndex: "name",
+      key: "name",
+      width: "10%",
+      ...getColumnSearchProps("name"),
+    },
+    {
+      title: "E-mail",
+      dataIndex: "email",
+    },
+    {
+      title: "Profession",
+      dataIndex: "profession",
+    },
+    {
+      title: "Age",
+      dataIndex: "age",
+      sorter: (a, b) => a.age - b.age,
+    },
+    {
+      title: "Location",
+      dataIndex: "location",
+      filters: [
+        {
+          text: "France",
+          value: "France",
+        },
+        ,
+        {
+          text: "Germany",
+          value: "Germany",
+        },
+        {
+          text: "USA",
+          value: "USA",
+        },
+        {
+          text: "UK",
+          value: "UK",
+        },
+      ],
+      onFilter: (value, record) => record.location.startsWith(value),
+      filterSearch: true,
+    },
+    {
+      title: "Actions",
+      dataIndex: "actions",
+      render: (_, record) => (
+        <>
+          <Button
+            onClick={() => {
+              navigate(`/edit-user/${record.id}`);
+            }}
+          >
+            <i
+              className="bi bi-pencil"
+              style={{
+                cursor: "pointer",
+                textDecoration: "none",
+                color: "orange",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            ></i>
+          </Button>
+          <Button onClick={() => deleteUserFromTable(record.id)}>
+            <i
+              className="bi bi-x-lg"
+              style={{
+                cursor: "pointer",
+                textDecoration: "none",
+                color: "red",
+                display: "flex",
+                justifyContent: "center",
+              }}
+            ></i>
+          </Button>
+        </>
+      ),
+    },
+  ];
+
+  const onChange = (pagination, filters, sorter, extra) => {
+    console.log("params", pagination, filters, sorter, extra);
+  };
+
+  const data = users.map((user) => {
+    return {
+      id: user.id,
+      name: user.name,
+      email: user.email,
+      profession: user.profession,
+      age: user.age,
+      location: user.location,
+    };
+  });
+
   return (
-    <div>
-      <h2 className="title">User Management</h2>
-      <div className="users-list">
-        <table>
+    <>
+      <div className="table-html">
+        <h2 className="title">User Management</h2>
+        <button className="add-user">
+          <Link
+            to={`/add-user`}
+            style={{
+              cursor: "pointer",
+              textDecoration: "none",
+              color: "black",
+            }}
+          >
+            Add new User
+          </Link>
+        </button>
+        <table className="users-table">
           <thead>
             <tr>
               <th>ID</th>
@@ -50,13 +280,25 @@ function UsersList() {
                   <td>{user.age}</td>
                   <td>{user.location}</td>
                   <td>
-                    <Link to={`/edit-user/${user.id}`}>
-                      Edit<i className="bi bi-x-lg"></i>
+                    <Link
+                      to={`/edit-user/${user.id}`}
+                      style={{
+                        cursor: "pointer",
+                        textDecoration: "none",
+                        color: "orange",
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      <i className="bi bi-pencil"></i>
                     </Link>
                   </td>
                   <td>
-                    <a onClick={() => deleteUserFromTable(user)}>
-                      Remove <i className="bi bi-pencil"></i>
+                    <a
+                      className="remove-cursor"
+                      onClick={() => deleteUserFromTable(user.id)}
+                    >
+                      <i className="bi bi-x-lg"></i>
                     </a>
                   </td>
                 </tr>
@@ -65,10 +307,8 @@ function UsersList() {
           </tbody>
         </table>
       </div>
-      <div>
-        <Link to={`/add-user`}>Add new User</Link>
-      </div>
-    </div>
+      <Table columns={columns} dataSource={data} onChange={onChange} />
+    </>
   );
 }
 export default UsersList;

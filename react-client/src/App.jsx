@@ -4,6 +4,7 @@ import "./App.css";
 import UsersList from "./UsersList/UsersList";
 import AddUser from "./AddUser/AddUser";
 import EditUser from "./EditUser/EditUser";
+import "antd/dist/antd.css";
 
 function App() {
   return (

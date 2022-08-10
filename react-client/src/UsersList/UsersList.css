@@ -1,29 +1,47 @@
-.table {
+.table-html {
+  margin-bottom: 50px;
+}
+
+.add-user {
+  padding-bottom: 10px;
+}
+
+.users-table {
   font-family: arial, sans-serif;
   border-collapse: collapse;
   width: 100%;
 }
 
-.table,
-th {
+.users-table th {
   font-weight: bold;
   background-color: rgba(46, 117, 231, 0.806);
   height: 50px;
 }
 
-.table,
-td,
-th {
+.users-table td,
+.users-table th {
   border: 1px solid #dddddd;
   text-align: left;
   padding: 8px;
 }
 
-.table,
-tr:nth-child(even) {
+.users-table tr:nth-child(even) {
   background-color: #dddddd;
 }
 
-tr:hover {
+.users-table tr:hover {
   background-color: rgba(12, 136, 237, 0.18);
+}
+
+.remove-cursor {
+  cursor: pointer;
+  text-decoration: none;
+  color: red;
+  display: flex;
+  justify-content: center;
+}
+
+.remove-cursor:hover {
+  text-decoration: none;
+  color: red;
 }
