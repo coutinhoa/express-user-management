@@ -42,14 +42,15 @@ function EditUser({}) {
   };
 
   return (
-    <div className="add-user">
+    <div className="edit-user">
       <h2>
         <Link to="/">Edit user</Link>
       </h2>
-      <form onSubmit={updateUser}>
-        <div>
-          <label>Name:</label>
+      <form onSubmit={updateUser} className="html-form">
+        <div className="label-input-container">
+          <label className="label-container">Name:</label>
           <input
+            className="input-container"
             type="text"
             name="name"
             required
@@ -57,9 +58,10 @@ function EditUser({}) {
             onChange={(event) => setName(event.target.value)}
           />
         </div>
-        <div>
-          <label>Email:</label>
+        <div className="label-input-container">
+          <label className="label-container">Email:</label>
           <input
+            className="input-container"
             type="email"
             name="email"
             required
@@ -67,9 +69,10 @@ function EditUser({}) {
             onChange={(event) => setEmail(event.target.value)}
           />
         </div>
-        <div>
-          <label>Profession:</label>
+        <div className="label-input-container">
+          <label className="label-container">Profession:</label>
           <input
+            className="input-container"
             type="text"
             name="profession"
             required
@@ -77,9 +80,10 @@ function EditUser({}) {
             onChange={(event) => setProfession(event.target.value)}
           ></input>
         </div>
-        <div>
-          <label>Age:</label>
+        <div className="label-input-container">
+          <label className="label-container">Age:</label>
           <input
+            className="input-container"
             type="number"
             name="age"
             required
@@ -87,9 +91,10 @@ function EditUser({}) {
             onChange={(event) => setAge(event.target.value)}
           />
         </div>
-        <div>
-          <label>Location:</label>
+        <div className="label-input-container">
+          <label className="label-container">Location:</label>
           <input
+            className="input-container"
             type="text"
             name="location"
             required

@@ -1,9 +1,15 @@
+.title {
+  display: flex;
+  justify-content: center;
+}
+
 .table-html {
   margin-bottom: 50px;
 }
 
-.add-user {
-  padding-bottom: 10px;
+.add-user-button {
+  margin-left: 91%;
+  font-weight: bold;
 }
 
 .users-table {

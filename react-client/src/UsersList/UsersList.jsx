@@ -4,22 +4,24 @@ import { Link, useNavigate } from "react-router-dom";
 import { SearchOutlined } from "@ant-design/icons";
 import { Button, Input, Space, Table } from "antd";
 import Highlighter from "react-highlight-words";
+import { useStore } from "./../useStore";
 
 function UsersList() {
-  const [users, setUsers] = useState([]);
+  const { users, fetchUsers } = useStore();
+  //const [users, setUsers] = useState([]);
   //ant table
   const [searchText, setSearchText] = useState("");
   const [searchedColumn, setSearchedColumn] = useState("");
   const searchInput = useRef(null);
   let navigate = useNavigate();
 
-  const fetchUsers = () => {
+  /*const fetchUsers = () => {
     fetch("http://localhost:4000/api/users")
       .then((response) => response.json())
       .then((response) => {
         setUsers(response);
       });
-  };
+  };*/ //same as the useStore
 
   useEffect(() => {
     fetchUsers();
@@ -191,8 +193,9 @@ function UsersList() {
     {
       title: "Actions",
       dataIndex: "actions",
+      width: "10%",
       render: (_, record) => (
-        <>
+        <Space>
           <Button
             onClick={() => {
               navigate(`/edit-user/${record.id}`);
@@ -221,7 +224,7 @@ function UsersList() {
               }}
             ></i>
           </Button>
-        </>
+        </Space>
       ),
     },
   ];
@@ -245,7 +248,7 @@ function UsersList() {
     <>
       <div className="table-html">
         <h2 className="title">User Management</h2>
-        <button className="add-user">
+        <button className="add-user-button">
           <Link
             to={`/add-user`}
             style={{
