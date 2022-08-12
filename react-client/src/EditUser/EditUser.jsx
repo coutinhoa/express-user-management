@@ -43,8 +43,21 @@ function EditUser({}) {
 
   return (
     <div className="edit-user">
-      <h2>
-        <Link to="/">Edit user</Link>
+      <h2 className="header">
+        <div>
+          <i className="bi bi-arrow-left"></i>
+          <Link
+            to="/"
+            style={{
+              cursor: "pointer",
+              textDecoration: "none",
+              color: "black",
+            }}
+          >
+            Back to the homepage
+          </Link>
+        </div>
+        <div>Edit a user</div>
       </h2>
       <form onSubmit={updateUser} className="html-form">
         <div className="label-input-container">
@@ -102,7 +115,9 @@ function EditUser({}) {
             onChange={(event) => setLocation(event.target.value)}
           />
         </div>
-        <button type="submit">Submit</button>
+        <button className="submit-button" type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );

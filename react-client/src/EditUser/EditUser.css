@@ -25,3 +25,9 @@
 .input-container:hover {
   border-color: rgba(0, 115, 255, 0.635);
 }
+
+.submit-button {
+  background-color: rgba(0, 68, 255, 0.299);
+  border-color: transparent;
+  border-radius: 2px 2px 2px 2px;
+}

@@ -248,6 +248,7 @@ function UsersList() {
     <>
       <div className="table-html">
         <h2 className="title">User Management</h2>
+        <h3>HTML version</h3>
         <button className="add-user-button">
           <Link
             to={`/add-user`}
@@ -310,6 +311,19 @@ function UsersList() {
           </tbody>
         </table>
       </div>
+      <h3>Ant design version</h3>
+      <Button className="button-ant" type="primary">
+        <Link
+          to={`/add-user`}
+          style={{
+            cursor: "pointer",
+            textDecoration: "none",
+            color: "black",
+          }}
+        >
+          Add new User
+        </Link>
+      </Button>
       <Table columns={columns} dataSource={data} onChange={onChange} />
     </>
   );

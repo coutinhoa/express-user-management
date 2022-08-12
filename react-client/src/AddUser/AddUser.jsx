@@ -81,6 +81,7 @@ function AddUser() {
         </div>
         <div>Add a new user</div>
       </h2>
+      <h3>HTML version</h3>
       <form onSubmit={addUserToTable} className="html-form">
         <div className="label-input-container">
           <label className="label-container">Name:</label>
@@ -131,6 +132,7 @@ function AddUser() {
           Submit
         </button>
       </form>
+      <h3>Ant design version</h3>
       <Form
         {...layout}
         name="nest-messages"
