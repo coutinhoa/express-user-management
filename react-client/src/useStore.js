@@ -1,9 +1,9 @@
 import create from "zustand";
 
 export const useStore = create((set) => ({
-  users: [],
+  users: [], // if express server localhost:4000
   fetchUsers: () => {
-    fetch(`http://localhost:4000/api/users`, {
+    fetch(`http://localhost:8000/api/users`, {
       method: "GET",
     })
       .then((response) => response.json())

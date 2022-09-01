@@ -12,7 +12,7 @@ function EditUser({}) {
   let navigate = useNavigate();
 
   const fetchUser = () => {
-    fetch(`http://localhost:4000/api/users/${params.id}`, {
+    fetch(`http://localhost:8000/api/users/${params.id}`, {
       method: "GET",
     })
       .then((response) => response.json())
@@ -32,7 +32,7 @@ function EditUser({}) {
   const updateUser = (event) => {
     event.preventDefault();
     console.log(name);
-    fetch(`http://localhost:4000/api/users/${params.id}`, {
+    fetch(`http://localhost:8000/api/users/${params.id}`, {
       method: "PUT",
       headers: {
         "Content-type": "application/json",

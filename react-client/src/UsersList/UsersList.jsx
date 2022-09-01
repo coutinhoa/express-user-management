@@ -28,9 +28,9 @@ function UsersList() {
   }, []);
 
   const deleteUserFromTable = (id) => {
-    console.log(id);
+    console.log(id); // fetch(`http://localhost:4000/api/users/${id}` for express server
     if (id) {
-      fetch(`http://localhost:4000/api/users/${id}`, {
+      fetch(`http://localhost:8000/api/users/${id}`, {
         method: "DELETE",
       }).then(fetchUsers);
     }

@@ -9,7 +9,7 @@ function AddUser() {
   const addUserToTable = (event) => {
     event.preventDefault();
 
-    fetch(`http://localhost:4000/api/users/`, {
+    fetch(`http://localhost:8000/api/users/`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
@@ -27,7 +27,7 @@ function AddUser() {
   //ant Form
   const onFinish = (values) => {
     console.log(values);
-    fetch(`http://localhost:4000/api/users/`, {
+    fetch(`http://localhost:8000/api/users/`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",
