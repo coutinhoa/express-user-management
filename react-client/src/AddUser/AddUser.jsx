@@ -81,57 +81,6 @@ function AddUser() {
         </div>
         <div>Add a new user</div>
       </h2>
-      <h3>HTML version</h3>
-      <form onSubmit={addUserToTable} className="html-form">
-        <div className="label-input-container">
-          <label className="label-container">Name:</label>
-          <input
-            className="input-container"
-            type="text"
-            name="name"
-            required
-          ></input>
-        </div>
-        <div className="label-input-container">
-          <label className="label-container">Email:</label>
-          <input
-            className="input-container"
-            type="email"
-            name="email"
-            required
-          ></input>
-        </div>
-        <div className="label-input-container">
-          <label className="label-container">Profession:</label>
-          <input
-            className="input-container"
-            type="text"
-            name="profession"
-            required
-          ></input>
-        </div>
-        <div className="label-input-container">
-          <label className="label-container">Age:</label>
-          <input
-            className="input-container"
-            type="number"
-            name="age"
-            required
-          ></input>
-        </div>
-        <div className="label-input-container">
-          <label className="label-container">Location:</label>
-          <input
-            className="input-container"
-            type="text"
-            name="location"
-            required
-          ></input>
-        </div>
-        <button className="submit-button" type="submit">
-          Submit
-        </button>
-      </form>
       <h3>Ant design version</h3>
       <Form
         {...layout}
@@ -202,6 +151,57 @@ function AddUser() {
           </Button>
         </Form.Item>
       </Form>
+      <h3>HTML version</h3>
+      <form onSubmit={addUserToTable} className="html-form">
+        <div className="label-input-container">
+          <label className="label-container">Name:</label>
+          <input
+            className="input-container"
+            type="text"
+            name="name"
+            required
+          ></input>
+        </div>
+        <div className="label-input-container">
+          <label className="label-container">Email:</label>
+          <input
+            className="input-container"
+            type="email"
+            name="email"
+            required
+          ></input>
+        </div>
+        <div className="label-input-container">
+          <label className="label-container">Profession:</label>
+          <input
+            className="input-container"
+            type="text"
+            name="profession"
+            required
+          ></input>
+        </div>
+        <div className="label-input-container">
+          <label className="label-container">Age:</label>
+          <input
+            className="input-container"
+            type="number"
+            name="age"
+            required
+          ></input>
+        </div>
+        <div className="label-input-container">
+          <label className="label-container">Location:</label>
+          <input
+            className="input-container"
+            type="text"
+            name="location"
+            required
+          ></input>
+        </div>
+        <button className="submit-button" type="submit">
+          Submit
+        </button>
+      </form>
     </div>
   );
 }

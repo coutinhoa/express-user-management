@@ -59,8 +59,12 @@ def delete_user(user_id: int, db: Session = Depends(get_db)):
     
 
 @app.put("/api/users/{user_id}", response_model=schemas.User)
-def update_user(user_id: int, db: Session = Depends(get_db)):
+def update_user_fuction(user_id: int, user: schemas.UserUpdate, db: Session = Depends(get_db)):
     db_user = crud.get_user(db, user_id=user_id)
+    # we are getting the values of db_user and then in the setattr we replace it with the updated ones
     if db_user is None:
         raise HTTPException(status_code=404, detail="User not found")
-    return crud.update_user(db, db_user)
+    user_data = user.dict(exclude_unset=True)
+    for key, value in user_data.items():
+        setattr(db_user, key, value)
+    return crud.update_user(db, db_user) #this calls the crud function

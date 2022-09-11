@@ -233,7 +233,7 @@ function UsersList() {
     console.log("params", pagination, filters, sorter, extra);
   };
 
-  const data = users.map((user) => {
+  /*  const data = users.map((user) => {
     return {
       id: user.id,
       name: user.name,
@@ -242,12 +242,26 @@ function UsersList() {
       age: user.age,
       location: user.location,
     };
-  });
+  });*/
 
   return (
     <>
       <div className="table-html">
         <h2 className="title">User Management</h2>
+        <h3>Ant design version</h3>
+        <Button className="button-ant" type="primary">
+          <Link
+            to={`/add-user`}
+            style={{
+              cursor: "pointer",
+              textDecoration: "none",
+              color: "black",
+            }}
+          >
+            Add new User
+          </Link>
+        </Button>
+        <Table columns={columns} dataSource={users} onChange={onChange} />
         <h3>HTML version</h3>
         <button className="add-user-button">
           <Link
@@ -311,21 +325,7 @@ function UsersList() {
           </tbody>
         </table>
       </div>
-      <h3>Ant design version</h3>
-      <Button className="button-ant" type="primary">
-        <Link
-          to={`/add-user`}
-          style={{
-            cursor: "pointer",
-            textDecoration: "none",
-            color: "black",
-          }}
-        >
-          Add new User
-        </Link>
-      </Button>
-      <Table columns={columns} dataSource={data} onChange={onChange} />
     </>
-  );
+  ); //dataSource={data}
 }
 export default UsersList;
