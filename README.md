@@ -48,7 +48,7 @@ yarn dev
 
 For FastAPI:
 ```sh
-cd express-user-management/server/sql_app
+cd express-user-management/python-server/sql_app
 uvicorn main:app  --reload --host 0.0.0.0 --port 8000
 ```
 
